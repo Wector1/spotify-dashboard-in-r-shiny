@@ -1,9 +1,10 @@
 library(shiny)
+library(ggplot2)
+library(plotly)
+source("ui/artist_ui.R")
 
 fluidPage(
   tabsetPanel(
-    tabPanel("tab 1"),
-    tabPanel("tab 2"),
-    tabPanel("tab 3")
+    artist_ui,
   )
 )
