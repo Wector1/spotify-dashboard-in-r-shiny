@@ -11,4 +11,5 @@ artist_id <- "None"
 
 function(input, output, session) {
   source("server/artist_server.R", local=TRUE)
+  source("server/top_server.R", local=TRUE)
 }
