@@ -9,7 +9,7 @@ countries = c("Gernamy",
 top_ui <- 
   tabPanel("Top songs by country",
            fluidPage(
-                    selectInput("top_country", "Select country", countries, selected="PL", width="100%"), 
+                    tags$div(class='select', selectInput("top_country", "Select country", countries, selected="PL", width="100%")), 
                     dataTableOutput("top_country_datatable")
              )
            )
