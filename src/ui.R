@@ -6,6 +6,7 @@ source("ui/top_ui.R")
 source("ui/recommendation_ui.R")
 
 fluidPage(
+  includeCSS("www/dark_mode.css"),
   tabsetPanel(
     artist_ui,
     top_ui,

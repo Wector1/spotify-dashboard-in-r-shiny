@@ -4,8 +4,10 @@ library(plotly)
 artist_ui <- 
   tabPanel("Artist info",
            fluidPage(
-             column(width=10, textInput("artist_id", "", placeholder = "Artist name", width="100%")),
-             column(width=2, div( style="margin-top: 20px", actionButton("artist_search", "Search"))),
+             column(width=10, 
+                    tags$div(class="text-input", textInput("artist_id", "", placeholder = "Artist name", width="100%"))
+                    ),
+             column(width=2, div( style="margin-top: 20px", actionButton("artist_search", "Search")))
              ),
            fluidPage(
              column(4, 
@@ -17,7 +19,7 @@ artist_ui <-
                   )
              ),
              column(8, 
-                    selectInput("artist_albums", "Artist's albums", c(), selected="None", width="100%"), 
+                    tags$div(class='select', selectInput("artist_albums", "Artist's albums", c(), selected="None", width="100%")), 
                     dataTableOutput("artist_albums_datatable")
              )
            )
