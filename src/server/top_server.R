@@ -3,12 +3,10 @@ library(leaflet)
 library(geojsonio)
 library(sp)
 library(spotifyr)
-library(DT)  # Assuming you are using the DT package for DataTables
+library(DT)
 
-# Load the GeoJSON data for the world countries
-url <- "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"
-world_geojson <- geojsonio::geojson_read(url, what = "sp")
 
+# Define the server logic
 selected_country <- reactiveVal(NULL)
 
 output$world_map <- renderLeaflet({
@@ -72,4 +70,5 @@ observeEvent(input$world_map_shape_click, {
     tracks
   })
 })
+
 

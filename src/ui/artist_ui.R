@@ -5,7 +5,7 @@ artist_ui <-
   tabPanel("Artist info",
            fluidPage(
              column(width=10, textInput("artist_id", "", placeholder = "Artist name", width="100%")),
-             column(width=2, div( style="margin-top: 20px", actionButton("artist_search", "Search")))
+             column(width=2, div( style="margin-top: 20px", actionButton("artist_search", "Search"))),
              ),
            fluidPage(
              column(4, 
