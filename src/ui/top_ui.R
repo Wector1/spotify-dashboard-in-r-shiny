@@ -1,15 +1,18 @@
-library(ggplot2)
-library(plotly)
+library(shiny)
+library(leaflet)
+library(DT)
 
-countries = c("Gernamy",
-              "France",
-              "Poland",
-              "Spain")
-
-top_ui <- 
-  tabPanel("Top songs by country",
-           fluidPage(
-                    tags$div(class='select', selectInput("top_country", "Select country", countries, selected="PL", width="100%")), 
-                    dataTableOutput("top_country_datatable")
-             )
-           )
+# Define the UI
+top_ui <- tabPanel("Top Songs by Country",
+  fluidPage(
+    sidebarLayout(
+      sidebarPanel(
+        textOutput("country_name")
+      ),
+      mainPanel(
+        leafletOutput("world_map"),
+        DT::DTOutput("top_country_datatable")
+      )
+    )
+  )
+)
