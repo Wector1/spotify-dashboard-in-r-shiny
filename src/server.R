@@ -14,4 +14,5 @@ world_geojson <- geojsonio::geojson_read(url, what = "sp")
 function(input, output, session) {
   source("server/artist_server.R", local=TRUE)
   source("server/top_server.R", local=TRUE)
+  source("server/recommendation_server.R", local=TRUE)
 }
