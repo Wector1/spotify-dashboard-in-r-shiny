@@ -67,7 +67,7 @@ observeEvent(input$world_map_shape_click, {
   }
   colnames(tracks) <- c("Name", "Artists", "Album Name", "Release Date", "Popularity")
   output$top_country_datatable <- renderDataTable({
-    tracks
+    datatable(tracks, options = list(lengthChange = FALSE, searching = FALSE, paging = FALSE, info = FALSE))
   })
 })
 
