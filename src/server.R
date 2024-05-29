@@ -2,7 +2,10 @@ library(shiny)
 library(spotifyr)
 library(ggplot2)
 library(plotly)
+library(conflicted)
 source("config.R")
+conflicts_prefer(DT::renderDataTable())
+conflicts_prefer(plotly::layout())
 
 Sys.setenv(SPOTIFY_CLIENT_ID = spotify_client_id)
 Sys.setenv(SPOTIFY_CLIENT_SECRET = spotify_client_secret)
@@ -15,4 +18,5 @@ function(input, output, session) {
   source("server/artist_server.R", local=TRUE)
   source("server/top_server.R", local=TRUE)
   source("server/recommendation_server.R", local=TRUE)
+  source("server/scatterplot_server.R", local=TRUE)
 }
