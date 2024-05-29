@@ -48,5 +48,8 @@ artist_ui <-
                       tags$div(class="artist_iframe_c", uiOutput("artist_iframe"))
                )
              )
+           ),
+           fluidPage(
+             plotlyOutput('audio_features_comparison')
            )
   )

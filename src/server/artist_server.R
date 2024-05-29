@@ -1,46 +1,51 @@
 observeEvent(input$artist_search, {
-  artist_id <<- search_spotify(as.character(input$artist_id), 'artist')$id[1]
-  artist_info <- get_artist(artist_id)
-  
-  output$artist_image <- renderUI({
-    div(
-      tags$img(style="border-radius:50%; top-margin:20px", src=artist_info$images$url[1], 
-               width=200, height=200)
-    )
-  })
-  output$artist_name <- renderText ({artist_info$name})
-  
-  followers <- get_artists(artist_id)$followers.total
-  output$artist_followers <- renderText({followers})
- 
-  # plot audio features
-  redraw_audio_features(input, output, session)
-  
-  # update list of albums
-  albums <- get_artist_albums(artist_id)
-  albums_names <- c("Most popular songs", albums$name)
-  updateSelectInput(session,"artist_albums",choices=albums_names, selected="Most popular songs")
-  
-  # tracks data table
-  top_tracks <- get_artist_top_tracks(artist_id)
-  top_tracks <- top_tracks[c("name", "album.name", "album.release_date", "popularity")]
-  colnames(top_tracks) <- c("name", "album name", "release date", "popularity")
-  
-  output$artist_iframe <- renderUI({
-   div(style="margin:20px",
-     tags$iframe(id = "iframe",
-                 style="border-radius:12px;",
-                 src=paste0("https://open.spotify.com/embed/artist/",
-                            artist_id, "?utm_source=generator"), 
-                 width="100%",
-                 height="650",
-                 frameBorder="0",
-                 allowfullscreen="",
-                 
-                 allow="autoplay; clipboard-write; encrypted-media; fullscreen;
-                  picture-in-picture", loading="lazy")
-   )
-  })
+  if (input$artist_id != ' ') {
+    artist_id <<- search_spotify(as.character(input$artist_id), 'artist')$id[1]
+    artist_info <- get_artist(artist_id)
+    
+    output$artist_image <- renderUI({
+      div(
+        tags$img(style="border-radius:50%; top-margin:20px", src=artist_info$images$url[1], 
+                 width=200, height=200)
+      )
+    })
+    output$artist_name <- renderText ({artist_info$name})
+    
+    followers <- get_artists(artist_id)$followers.total
+    output$artist_followers <- renderText({followers})
+   
+    # plot audio features
+    redraw_audio_features(input, output, session)
+    
+    # plot audio features comparison
+    render_audio_features_comparison(input, output, session)
+    
+    # update list of albums
+    albums <- get_artist_albums(artist_id)
+    albums_names <- c("Most popular songs", albums$name)
+    updateSelectInput(session,"artist_albums",choices=albums_names, selected="Most popular songs")
+    
+    # tracks data table
+    top_tracks <- get_artist_top_tracks(artist_id)
+    top_tracks <- top_tracks[c("name", "album.name", "album.release_date", "popularity")]
+    colnames(top_tracks) <- c("name", "album name", "release date", "popularity")
+    
+    output$artist_iframe <- renderUI({
+     div(style="margin:20px",
+       tags$iframe(id = "iframe",
+                   style="border-radius:12px;",
+                   src=paste0("https://open.spotify.com/embed/artist/",
+                              artist_id, "?utm_source=generator"), 
+                   width="100%",
+                   height="650",
+                   frameBorder="0",
+                   allowfullscreen="",
+                   
+                   allow="autoplay; clipboard-write; encrypted-media; fullscreen;
+                    picture-in-picture", loading="lazy")
+     )
+    })
+  }
 })
 
 observeEvent(input$artist_plot_input, {
@@ -95,6 +100,47 @@ observeEvent(input$artist_albums, {
   }
 })
 
+render_audio_features_comparison <- function(input, output, session) {
+  audio_features <- get_artist_audio_features(artist_id)
+  audio_features <- audio_features[c('album_release_year',
+                                     'energy',
+                                     'instrumentalness',
+                                     'danceability',
+                                     'acousticness',
+                                     'liveness',
+                                     'speechiness')]
+  
+  audio_features <- aggregate(audio_features, 
+                              by = list(audio_features$album_release_year), 
+                              FUN = mean) %>%
+    arrange(album_release_year)
+  
+  fig <- plot_ly(audio_features, x=~album_release_year, y=~energy, name='energy', type='scatter', mode='lines', line=list(color='#1CB752'))
+  fig <- fig %>% add_trace(y=~instrumentalness, name='instrumentalness', type='scatter', mode='lines', line=list(color='#FF0022'))
+  fig <- fig %>% add_trace(y=~danceability, name='danceability', type='scatter', mode='lines', line=list(color='#B91372'))
+  fig <- fig %>% add_trace(y=~acousticness, name='acousticness', type='scatter', mode='lines', line=list(color='#FCFAF9'))
+  fig <- fig %>% add_trace(y=~liveness, name='liveness', type='scatter', mode='lines', line=list(color='#7D84B2'))
+  fig <- fig %>% add_trace(y=~speechiness, name='speechiness', type='scatter', mode='lines', line=list(color='#F0E100'))
+  fig <- fig %>% layout(yaxis=list(range=list(0,1),
+                                   title='',
+                                   tickfont=list(size=15),
+                                   color='#E8E8E8'),
+                        xaxis=list(color='#E8E8E8',
+                                   title='Album release year',
+                                   tickfont=list(size=15),
+                                   titlefont=list(size=22),
+                                   dtick=(floor((tail(audio_features$album_release_year, n=1) - 
+                                                  audio_features$album_release_year[1]) / 5)),
+                                   tick0=audio_features$album_release_year[1]),
+                        legend=list(font=list(size=15)),
+                        font=list(color='#E8E8E8'),
+                        plot_bgcolor='#242331',
+                        paper_bgcolor='#242331')
+  output$audio_features_comparison <- renderPlotly(
+    fig
+  )
+}
+
 redraw_audio_features <- function(input, output, session) {
   if(input$artist_plot_input == "Overall") {
     audio_features <- get_artist_audio_features(artist_id)
@@ -122,8 +168,8 @@ redraw_audio_features <- function(input, output, session) {
     audio_features <- do.call("rbind", audio_features)
   }
   audio_features_values <- c(
-    mean(audio_features$instrumentalness),
     mean(audio_features$energy),
+    mean(audio_features$instrumentalness),
     mean(audio_features$danceability),
     mean(audio_features$acousticness),
     mean(audio_features$liveness),
