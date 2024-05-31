@@ -2,16 +2,14 @@ library(dplyr)
 library(plotly)
 data <- read.csv("spotify_data/spotify_data.csv")
 
-# create new data and retain only the columns we need: year, 
-data_pruned <- data[, c("year", "popularity", "genre", "danceability")]
+data_pruned <- data[, c("year", "popularity", "genre", "danceability", "instrumentalness", "loudness", "tempo", "speechiness", "acousticness")]
 
 # drop data from 2023 because it is incomplete
-data_pruned <- data_pruned %>% filter(year != 2023)
+data_pruned <- data_pruned[data_pruned$year != 2023, ]
 
-# for each year and genre calculate the average popularity and danceability
 data_aggregated <- data_pruned %>%
   group_by(year, genre) %>%
-  summarise(avg_popularity = mean(popularity), avg_danceability = mean(danceability), count = n())
+  summarise(avg_popularity = mean(popularity), avg_danceability = mean(danceability), avg_instrumentalness = mean(instrumentalness), avg_loudness = mean(loudness), avg_tempo = mean(tempo), avg_speechiness = mean(speechiness), avg_acousticness = mean(acousticness), count = n())
 
 # export data_aggregated to a csv file
 write.csv(data_aggregated, "spotify_data/spotify_data_aggregated.csv", row.names = FALSE)

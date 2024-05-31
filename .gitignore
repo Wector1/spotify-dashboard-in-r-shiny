@@ -1,3 +1,4 @@
 config.R
 **/tags
 **/.Rhistory
+src/spotify_data/spotify_data.csv
