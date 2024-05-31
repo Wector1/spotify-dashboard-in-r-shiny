@@ -4,15 +4,9 @@ library(DT)
 
 # Define the UI
 top_ui <- tabPanel("Top Songs by Country",
-  fluidPage(
-    sidebarLayout(
-      sidebarPanel(
-        textOutput("country_name")
-      ),
-      mainPanel(
+  verticalLayout(
+        h3(textOutput("country_name")),
         leafletOutput("world_map"),
         DT::DTOutput("top_country_datatable")
-      )
-    )
   )
 )

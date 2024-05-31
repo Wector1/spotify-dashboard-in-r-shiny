@@ -1,10 +1,13 @@
 library(shiny)
 library(leaflet)
-library(geojsonio)
+library(sf)
 library(sp)
 library(spotifyr)
 library(DT)
 
+# Load your GeoJSON data using the sf package
+# Replace "path/to/your/world.geojson" with the actual path to your GeoJSON file
+world_geojson <- st_read(url)
 
 # Define the server logic
 selected_country <- reactiveVal(NULL)
@@ -62,7 +65,7 @@ observeEvent(input$world_map_shape_click, {
   playlist <- get_playlist(playlist_id)
   tracks <- playlist$tracks$items[c('track.name', 'track.artists', 'track.album.name', 'track.album.release_date', 'track.popularity')]
   # Extract only artist name from artist's object
-  for (i in 1:50) {
+  for (i in 1:nrow(tracks)) {
     tracks$track.artists[[i]] <- tracks$track.artists[[i]]$name
   }
   colnames(tracks) <- c("Name", "Artists", "Album Name", "Release Date", "Popularity")
@@ -70,5 +73,3 @@ observeEvent(input$world_map_shape_click, {
     datatable(tracks, options = list(lengthChange = FALSE, searching = FALSE, paging = FALSE, info = FALSE))
   })
 })
-
-
