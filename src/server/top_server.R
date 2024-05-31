@@ -5,11 +5,8 @@ library(sp)
 library(spotifyr)
 library(DT)
 
-# Load your GeoJSON data using the sf package
-# Replace "path/to/your/world.geojson" with the actual path to your GeoJSON file
 world_geojson <- st_read(url)
 
-# Define the server logic
 selected_country <- reactiveVal(NULL)
 
 output$world_map <- renderLeaflet({
