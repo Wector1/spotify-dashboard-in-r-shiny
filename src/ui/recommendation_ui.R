@@ -2,7 +2,7 @@ recommendation_ui <- tabPanel("Song Recommender",
   fluidPage(
     sidebarLayout(
       sidebarPanel(
-        checkboxGroupInput("genres", "Genres: (select up to 3 values)",
+        checkboxGroupInput("genres", "Genres: (select up to 4 values)",
                            c("acoustic", "blues","brazil", "classical", "country", "disco", "hip-hop", "jazz", "metal", "movies", "pop", "reggae", "rock", "sleep", "soul", "tango", "techno")),
         
         sliderInput(inputId = "danceability",
