@@ -1,12 +1,11 @@
 library(shiny)
 library(leaflet)
-library(sf)
+library(geojsonio)
 library(sp)
 library(spotifyr)
 library(DT)
 
-world_geojson <- st_read(url)
-
+# Define the server logic
 selected_country <- reactiveVal(NULL)
 
 output$world_map <- renderLeaflet({
@@ -62,11 +61,13 @@ observeEvent(input$world_map_shape_click, {
   playlist <- get_playlist(playlist_id)
   tracks <- playlist$tracks$items[c('track.name', 'track.artists', 'track.album.name', 'track.album.release_date', 'track.popularity')]
   # Extract only artist name from artist's object
-  for (i in 1:nrow(tracks)) {
+  for (i in 1:50) {
     tracks$track.artists[[i]] <- tracks$track.artists[[i]]$name
   }
   colnames(tracks) <- c("Name", "Artists", "Album Name", "Release Date", "Popularity")
   output$top_country_datatable <- renderDataTable({
-    datatable(tracks, options = list(lengthChange = FALSE, searching = FALSE, paging = FALSE, info = FALSE))
+    tracks
   })
 })
+
+

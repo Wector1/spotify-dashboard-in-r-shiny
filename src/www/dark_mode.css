@@ -87,6 +87,11 @@ button {
   color: #E8E8E8;
 }
 
+.select .selectize-dropdown-content > .active {
+  background-color: #343341 !important;
+  color: #E8E8E8;
+}
+
 .select .single {
   background-color: #242331 !important;
   color: #E8E8E8;
