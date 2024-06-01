@@ -32,6 +32,10 @@ Map {
   cursor: pointer;
 }
 
+[type=checkbox]:checked {
+  background-color: currentcolor;
+}
+
 .irs--shiny .irs-bar {
   background: #1CB752;
   border-width: 0;
