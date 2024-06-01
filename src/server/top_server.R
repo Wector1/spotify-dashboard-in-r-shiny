@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-library(shiny)
-library(leaflet)
-library(sf)
-library(sp)
-library(spotifyr)
-library(DT)
-
-world_geojson <- st_read(url)
-=======
-
->>>>>>> 549a488 (Improve UI)
-
 selected_country <- reactiveVal(NULL)
 
 output$world_map <- renderLeaflet({

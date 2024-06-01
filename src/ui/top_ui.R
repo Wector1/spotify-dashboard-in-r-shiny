@@ -6,11 +6,7 @@ top_ui <- tabPanel("Top Songs by Country",
      tags$head(
        tags$style(HTML("
         #world_map {
-<<<<<<< HEAD
-          height: 500px; 
-=======
           height: 900px; 
->>>>>>> 549a488 (Improve UI)
           margin: 0;
           padding: 0;
         }
