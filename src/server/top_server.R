@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 library(shiny)
 library(leaflet)
 library(sf)
@@ -6,17 +7,19 @@ library(spotifyr)
 library(DT)
 
 world_geojson <- st_read(url)
+=======
+
+>>>>>>> 549a488 (Improve UI)
 
 selected_country <- reactiveVal(NULL)
 
 output$world_map <- renderLeaflet({
   leaflet(world_geojson) %>%
-    addTiles() %>%
     addPolygons(
       color = "#444444",
       weight = 1,
-      fillColor = "white",
-      fillOpacity = 0.7,
+      fillColor = "#7D84B2",
+      fillOpacity = 0.9,
       highlight = highlightOptions(
         weight = 2,
         color = "#666666",
@@ -35,6 +38,7 @@ output$world_map <- renderLeaflet({
 })
 
 observeEvent(input$world_map_shape_click, {
+  backg <- htmltools::tags$style(".leaflet-container { background: tomato; }" )
   event <- input$world_map_shape_click
   selected_country(event$id)
   leafletProxy("world_map") %>%
@@ -43,8 +47,8 @@ observeEvent(input$world_map_shape_click, {
       data = world_geojson,
       color = "#444444",
       weight = 1,
-      fillColor = ~ifelse(name == selected_country(), "blue", "white"),
-      fillOpacity = 0.7,
+      fillColor = ~ifelse(name == selected_country(), "#1CB752", "#7D84B2"),
+      fillOpacity = 0.90,
       highlight = highlightOptions(
         weight = 2,
         color = "#666666",
@@ -53,7 +57,8 @@ observeEvent(input$world_map_shape_click, {
       ),
       label = ~name,
       layerId = ~name
-    )
+    ) %>%
+    htmlwidgets::prependContent(backg) 
   output$country_name <- renderText({
     paste("Selected Country:", selected_country())
   })
