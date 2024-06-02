@@ -7,7 +7,7 @@ observeEvent(input$top_artists_year, {
 })
 
 render_top_artists_by_year <- function(input, output, session) {
-  data <- read.csv(paste0("../data/charts_top200_", input$top_artists_region, ".csv"))
+  data <- read.csv(paste0("data/charts_top200_", input$top_artists_region, ".csv"))
 
   data <- data[data['year'] == input$top_artists_year, ]
   data$rank <- strsplit(data$rank, ';')
