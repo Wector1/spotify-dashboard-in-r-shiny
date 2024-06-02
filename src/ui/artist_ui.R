@@ -50,6 +50,10 @@ artist_ui <-
              )
            ),
            fluidPage(
+             h3("Mean value of audio features in years where any album was released", style="font-size:35px;
+                                  text-align:center;
+                                  margin: 10px 0px 0px !important;
+                                  font-weight: bold;"),
              plotlyOutput('audio_features_comparison') %>% withSpinner(color = "#1CB752")
            )
   )
