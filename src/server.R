@@ -8,6 +8,7 @@ library(leaflet)
 library(sf)
 library(sp)
 library(DT)
+library(shinycssloaders)
 source("config.R")
 
 conflicts_prefer(DT::renderDataTable())
@@ -27,4 +28,5 @@ function(input, output, session) {
   source("server/top_server.R", local=TRUE)
   source("server/recommendation_server.R", local=TRUE)
   source("server/scatterplot_server.R", local=TRUE)
+  source("server/top_artists_server.R", local=TRUE)
 }
