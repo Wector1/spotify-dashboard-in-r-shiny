@@ -21,7 +21,8 @@ render_top_artists_by_year <- function(input, output, session) {
   for (x in min(100, nrow(data)):1) {
     rank <- data[x, ]$rank[[1]]
     date <- data[x, ]$date[[1]]
-    data_to_plot <- data.frame(rank, date)
+    artist <- rep(data[x, ]$artist, length(date))
+    data_to_plot <- data.frame(rank, date, artist)
     if (data[x, ]$rank_overall < 6) {
       fig <- add_trace(fig, 
                        data=data_to_plot,
@@ -29,8 +30,13 @@ render_top_artists_by_year <- function(input, output, session) {
                        y=~rank,
                        type='scatter',
                        mode='lines+markers',
+                       meta=data[x, ]$artist,
                        line = list(color = colors[data[x, ]$rank_overall + 1], width=4),
                        marker = list(color = colors[data[x, ]$rank_overall + 1], size=10),
+                       hovertemplate=paste('<b>Date:</b> %{x}',
+                                           '<br><b>Rank:</b> %{y}</br>',
+                                           '<b>Artist:</b> %{meta}',
+                                           '<extra></extra>'),
                        name=data[x, ]$artist)
     } else {
       fig <- add_trace(fig, 
@@ -39,9 +45,14 @@ render_top_artists_by_year <- function(input, output, session) {
                        y=~rank,
                        type='scatter',
                        mode='lines+markers',
+                       meta=data[x, ]$artist,
                        line = list(color = colors[data[x, ]$rank_overall + 1], width=4),
                        marker = list(color = colors[data[x, ]$rank_overall + 1], size=10),
                        name=data[x, ]$artist,
+                       hovertemplate=paste('<b>Date:</b> %{x}',
+                                           '<br><b>Rank:</b> %{y}</br>',
+                                           '<b>Artist:</b> %{meta}',
+                                           '<extra></extra>'),
                        showlegend=F)
     }
   }
@@ -56,7 +67,8 @@ render_top_artists_by_year <- function(input, output, session) {
                  title='Date',
                  tickfont=list(size=15),
                  titlefont=list(size=22)),
-      legend=list(font=list(size=15)),
+      hoverlabel=list(bgcolor='#243231'),
+      legend=list(orientation='h', y=-0.7, font=list(size=15)),
       font=list(color='#E8E8E8'),
       plot_bgcolor='#242331',
       paper_bgcolor='#242331')

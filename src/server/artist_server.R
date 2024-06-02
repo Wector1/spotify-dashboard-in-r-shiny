@@ -115,7 +115,10 @@ render_audio_features_comparison <- function(input, output, session) {
                               FUN = mean) %>%
     arrange(album_release_year)
   
-  fig <- plot_ly(audio_features, x=~album_release_year, y=~energy, name='energy', type='scatter', mode='lines', line=list(color='#1CB752'))
+  fig <- plot_ly(audio_features, x=~album_release_year, y=~energy, name='energy', type='scatter', mode='lines', line=list(color='#1CB752'),
+                 hovertemplate=paste('<br><b>Year:</b> %{x}</br>',
+                                     '<b>Value:</b> %{y}',
+                                     '<extra></extra>'))
   fig <- fig %>% add_trace(y=~instrumentalness, name='instrumentalness', type='scatter', mode='lines', line=list(color='#FF0022'))
   fig <- fig %>% add_trace(y=~danceability, name='danceability', type='scatter', mode='lines', line=list(color='#B91372'))
   fig <- fig %>% add_trace(y=~acousticness, name='acousticness', type='scatter', mode='lines', line=list(color='#FCFAF9'))
