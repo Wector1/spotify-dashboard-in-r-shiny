@@ -7,7 +7,7 @@ artist_ui <-
              column(width=10, 
                     tags$div(class="text-input", 
                              textInput("artist_id", 
-                                       "", 
+                                       "",
                                        placeholder = "Artist name",
                                        width="100%"))
                     ),
@@ -23,18 +23,18 @@ artist_ui <-
                                   margin: 10px 0px 0px !important;
                                   font-weight: bold;
                                   padding: 10px 0px 0px !important;",
-                           textOutput("artist_name")),
+                           textOutput("artist_name") %>% withSpinner(color = "#1CB752")),
                       div(class="text_normal",
                           "followers:"),
                       div(class="text_counter",
-                          textOutput("artist_followers")),
+                          textOutput("artist_followers") %>% withSpinner(color = "#1CB752")),
                       tags$div(class='select',
                                selectInput("artist_plot_input",
-                                           "Artist's albums",
+                                           "Audio features",
                                            c("Overall", "Album"),
                                            selected="Overall",
                                            width="100%")), 
-                      plotOutput("artist_plot")
+                      plotOutput("artist_plot") %>% withSpinner(color = "#1CB752")
                   )
              ),
             column(8,
@@ -50,6 +50,6 @@ artist_ui <-
              )
            ),
            fluidPage(
-             plotlyOutput('audio_features_comparison')
+             plotlyOutput('audio_features_comparison') %>% withSpinner(color = "#1CB752")
            )
   )

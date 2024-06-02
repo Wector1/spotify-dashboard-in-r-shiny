@@ -17,7 +17,7 @@ top_ui <- tabPanel("Top Songs by Country",
      ),
      verticalLayout(
        h3(textOutput("country_name")),
-       leafletOutput("world_map", height = "500px"),
+       leafletOutput("world_map", height = "500px") %>% withSpinner(color = "#1CB752"),
        DT::DTOutput("top_country_datatable")
      )
 )

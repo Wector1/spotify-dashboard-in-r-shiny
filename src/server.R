@@ -22,6 +22,7 @@ artist_id <- "None"
 url <- "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"
 
 world_geojson <- st_read(url)
+audio_features <- "None"
 
 function(input, output, session) {
   source("server/artist_server.R", local=TRUE)

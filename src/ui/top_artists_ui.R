@@ -89,7 +89,7 @@ top_artists_ui <-
                                            width="100%")), 
                )
              ),
-             plotlyOutput('top_artists_by_year') %>% withSpinner()
+             plotlyOutput('top_artists_by_year') %>% withSpinner(color = "#1CB752")
            )
   )
 
