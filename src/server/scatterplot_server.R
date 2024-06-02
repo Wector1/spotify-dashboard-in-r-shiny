@@ -15,7 +15,12 @@ data_aggregated$avg_acousticness <- normalize(data_aggregated$avg_acousticness)
 
 animated_fig <- plot_ly(data_aggregated, x = ~avg_popularity, y = ~avg_danceability, size = ~count, text = ~genre, type = 'scatter', mode = 'markers', frame = ~year,
                         marker=list(color='#1CB752', line = list(width=0)),
-                        sliders = list(color='#1CB752')) %>%
+                        sliders = list(color='#1CB752'),
+                        meta=data_aggregated$count,
+                        hovertemplate=paste('<b>Average popularity:</b> %{x}',
+                                            '<br><b>Value:</b> %{y}</br>',
+                                            '<b>Count (size):</b> %{meta}',
+                                            '<extra></extra>')) %>%
   layout(
     title = list(text = '', font = list(color = "#E8E8E8")),
     font = list(color = "#E8E8E8", size = 15),
