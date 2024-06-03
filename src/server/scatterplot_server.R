@@ -16,8 +16,10 @@ data_aggregated$avg_acousticness <- normalize(data_aggregated$avg_acousticness)
 animated_fig <- plot_ly(data_aggregated, x = ~avg_popularity, y = ~avg_danceability, size = ~count, text = ~genre, type = 'scatter', mode = 'markers', frame = ~year,
                         marker=list(color='#1CB752', line = list(width=0)),
                         meta=data_aggregated$count,
-                        hovertemplate=paste('<b>Average popularity:</b> %{x}',
-                                            '<br><b>Value:</b> %{y}</br>',
+                        #hovertemplate with genre as title
+                        hovertemplate=paste('<b>Genre:</b> %{text}',
+                                            '<br><b>Average popularity:</b> %{x}',
+                                            '<br><b>Average danceability:</b> %{y}</br>',
                                             '<b>Count (size):</b> %{meta}',
                                             '<extra></extra>')) %>%
   layout(
