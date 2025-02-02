@@ -1,0 +1,13 @@
+name: SpotifyDashboard
+title: SpotifyDashboard
+username: adamdobosz
+account: adamdobosz
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12108860
+bundleId: 8691577
+url: https://adamdobosz.shinyapps.io/SpotifyDashboard/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: spotify_data/link.txt|spotify_data/spotify_data.csv|transform_data.R

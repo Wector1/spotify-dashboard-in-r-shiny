@@ -13,13 +13,21 @@ data_aggregated$avg_tempo <- normalize(data_aggregated$avg_tempo)
 data_aggregated$avg_speechiness <- normalize(data_aggregated$avg_speechiness)
 data_aggregated$avg_acousticness <- normalize(data_aggregated$avg_acousticness)
 
-animated_fig <- plot_ly(data_aggregated, x = ~avg_popularity, y = ~avg_danceability, color = ~count, text = ~genre, type = 'scatter', mode = 'markers', frame = ~year) %>%
+animated_fig <- plot_ly(data_aggregated, x = ~avg_popularity, y = ~avg_danceability, size = ~count, text = ~genre, type = 'scatter', mode = 'markers', frame = ~year,
+                        marker=list(color='#1CB752', line = list(width=0)),
+                        meta=data_aggregated$count,
+                        #hovertemplate with genre as title
+                        hovertemplate=paste('<b>Genre:</b> %{text}',
+                                            '<br><b>Average popularity:</b> %{x}',
+                                            '<br><b>Average danceability:</b> %{y}</br>',
+                                            '<b>Count (size):</b> %{meta}',
+                                            '<extra></extra>')) %>%
   layout(
-    title = list(text = '', font = list(color = "blue")),
-    font = list(color = "blue", size = 15),
+    title = list(text = '', font = list(color = "#E8E8E8")),
+    font = list(color = "#E8E8E8", size = 15),
     xaxis = list(title = 'Average popularity', titlefont = list(size = 20)),
     yaxis = list(title = 'Average danceability', titlefont = list(size = 20)),
-    plot_bgcolor = 'white', paper_bgcolor = 'white',
+    plot_bgcolor = '#242331', paper_bgcolor = '#242331',
     updatemenus = list(
       list(
         buttons = list(

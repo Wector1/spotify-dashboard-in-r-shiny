@@ -3,13 +3,61 @@ body {
   color: #E8E8E8;
 }
 
+.well {
+  background-color: #242331;
+  border-width: 0;
+}
+
+Map {
+  background-color: #242331;
+}
+
+.leaflet-container { 
+  background: #242331
+}
+
+[type=checkbox] {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #1CB752;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  outline: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+  background-color: #E8E8E8;
+  transition: background 300ms;
+  cursor: pointer;
+}
+
+[type=checkbox]:checked {
+  background-color: currentcolor;
+}
+
+.irs--shiny .irs-bar {
+  background: #1CB752;
+  border-width: 0;
+}
+
+.irs--shiny .irs-from, .irs--shiny .irs-to {
+  background-color: #242331;
+}
+
 tr {
-  background-color: #242331 !important;
+  background-color: #24233199;
   color: #E8E8E8 !important;
 }
 
 tr th {
   background-color: #242331 !important;
+}
+
+
+#top_country_datatable {
+  margin-top: -200px !important;
+  backdrop-filter: blur(10px);
 }
 
 .form-control {
@@ -108,9 +156,35 @@ button {
   font-weight: bold !important;
 }
 
+.nav li a:hover {
+  background-color: #141321; !important;
+  border-color: #E8E8E8 !important;
+  border-width: 0px;
+}
+
 .nav li.active a {
   background-color: #242331; !important;
   border-radius: 10px 10px 0px 0px !important;
   border-color: #E8E8E8 !important;
   border-width: 2px 2px 0px 2px;
+}
+
+.nav li.active a:focus {
+  background-color: #242331; !important;
+  border-radius: 10px 10px 0px 0px !important;
+  border-color: #E8E8E8 !important;
+  border-width: 2px 2px 0px 2px;
+}
+
+.nav li.active a:hover {
+  background-color: #141321; !important;
+  border-radius: 10px 10px 0px 0px !important;
+  border-color: #E8E8E8 !important;
+  border-width: 2px 2px 0px 2px;
+}
+
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
 }

@@ -46,7 +46,7 @@ recommendation_ui <- tabPanel("Song Recommender",
       
       mainPanel(
         h3(textOutput("caption")),
-        DTOutput("table_recommendation")
+        DTOutput("table_recommendation") %>% withSpinner(color = "#1CB752")
       )
     )
   )

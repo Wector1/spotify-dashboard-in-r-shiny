@@ -1,17 +1,22 @@
 library(shiny)
 library(ggplot2)
 library(plotly)
+library(shinycssloaders)
 source("ui/artist_ui.R")
 source("ui/top_ui.R")
 source("ui/recommendation_ui.R")
 source("ui/scatterplot_ui.R")
+source("ui/top_artists_ui.R")
+source("ui/about_ui.R")
 
 fluidPage(
   includeCSS("www/dark_mode.css"),
   tabsetPanel(
+    about_ui,
     artist_ui,
     top_ui,
     recommendation_ui,
-    scatterplot_ui
+    scatterplot_ui,
+    top_artists_ui
   )
 )
